@@ -484,7 +484,8 @@ class App {
       
         const promise = new Promise(resolve => {
             let xhr = new XMLHttpRequest();
-            let apiKey = '126937432de448308d17cef16fc5fb97';
+          //AQUI DEBES PONER TU PROPIA API KEY. PARA ELLO TIENES QUE DIRIGIRTE A LA PAGINA DE SPOONACULAR, REGISTRARTE Y COPIAR LA KEY QUE TE SERÁ PROPORCIONADA
+            let apiKey = '';
             let url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${value}`;
             xhr.open('GET',url);
             xhr.responseType = 'json';
