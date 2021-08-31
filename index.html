@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despensa</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <script src="app/ManejadorVista.js" defer></script>
+</head> 
+<body>
+    <div class="backdrop oculto"></div>
+
+    <div class="contenedor-index" id="contenedor-index">
+        <img src="assets/img/chantal-garnier-910GanwBoew-unsplash.jpg" alt="imagen principal de la página web" class="hero">
+        <h1 class="titulo-principal">DespensApp</h1>
+        <h3 class="subtitulo-principal">La aplicación para tener tu despensa bajo control</h3>
+        <div class="frases">
+            <p>Mantén tus víveres en orden</p>
+            <p>Investiga nuevas recetas</p>
+            <p>Ahorra tiempo</p>
+        </div>
+        <div class="botones">
+            <button id="tu-despensa-btn" class="indexButton">Tu despensa</button>
+            <button id="recetas-btn"class="indexButton">Buscar recetas</button>
+        </div>
+    </div>
+    <div class="contenedor-principal oculto" id="contenedor-principal">
+        <div class="contenedor-recetas oculto" id="contenedor-menu-recetas">
+            <h1 class="titulo">BUSCADOR DE RECETAS</h1>
+            <button class="volver">VOLVER</button>
+            <div class="buscador-recetas">
+                <h3>Introduce el alimento EN INGLÉS por el que quieras realizar la búsqueda</h3>
+                <h2><a href="https://translate.google.es/?hl=es&sl=es&tl=en&op=translate" target="_blank">Pincha aquí para traducir tu palabra a inglés</a></h2>
+                <input type="text">
+                <input type="submit" value="Buscar" id="buscador">
+            </div>
+            <div class="busqueda"></div>
+
+        </div>
+        <div class="contenedor-menu-despensa oculto" id= "contenedor-menu-despensa">
+            <h1 class="titulo">Menú despensa</h1>
+            <button class="volver">VOLVER</button>
+            <div class="contenedor-botones-navegacion">
+                <button class="indexButton" id="btnRegistrarComida">Registrar comida</button>
+                <button class="indexButton" id="btnModificarComida">Modificar comida</button>
+                <button class="indexButton" id="btnEliminarComida">Eliminar comida</button>
+                <button class="indexButton" id="btnMostrarComida">Mostrar comida</button>
+            </div>
+        </div>
+        <div class="contenedor-menu-despensa-alimentos oculto" id="contenedor-menu-despensa-alimentos">
+            <h1 class="titulo">Alimentos</h1>
+            <button class="volver">VOLVER</button>
+        </div>
+    </div>
+    <footer></footer>
+</body>
+</html>
