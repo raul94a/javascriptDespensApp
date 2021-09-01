@@ -42,10 +42,10 @@
         -Añadir la funcionalidad de confirmar la modificación y la eliminación de los alimentos.
         -Modularizar este script (ManejadorVista.js) partiéndolos en varios scripts. Para ello se debe trabajar con módulos e ir importándolos en el orden adecuado
             normalmente por cada clase hay un archivo .js .
-        -Investigar sobre AJAX (es decir, XMLHttpRequest) e implementar bien la petición !!!
+        -Investigar sobre AJAX (es decir, XMLHttpRequest) e implementar bien la petición !!! ¿Qué ocurre si falla? PISTA: la promesa puede recibir, además resolve, un segundo                 parámetro (que además es una función) llamado reject. Este reject es llamado cuando el status (404, etc) de la petición es el correspondiente a fallo.
         -Refactorizar código repetido, ya que puede ser mejorado completamente.
         -Rehacer el proyecto completo siguiendo un desarrollo más adecuado e inteligente.
-        -Buscar qué es el event bubbling en javascript y determinar puede ser implementado en el proyecto.
+        -Buscar qué es el event bubbling en javascript y el event delegation.
         -Mejorar el proyecto en todos los ámbitos:
             MVC
             Crear el backend con Node o Java 
