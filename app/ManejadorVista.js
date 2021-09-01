@@ -43,7 +43,7 @@
         -Investigar sobre AJAX (es decir, XMLHttpRequest) e implementar bien la petición !!!
         -Refactorizar código repetido, ya que puede ser mejorado completamente.
         -Rehacer el proyecto completo siguiendo un desarrollo más adecuado e inteligente.
-        -Buscar qué es el event bubbling en javascript y determinar puede ser implementado en el proyecto.
+        -Buscar qué es el event bubbling en javascript y determinar puede ser implementado en el proyecto, junto con event delegation.
         -Mejorar el proyecto en todos los ámbitos:
             MVC
             Crear el backend con Node o Java 
@@ -124,12 +124,16 @@ class ModalGenerator {
        
     }
     generarModal(){
-        //SELECCIONAMOR EL CONTENEDOR QUE ESTAMOS MOSTRANDO con el objetivo de meterlo ahí dentro
+        /* el objetivo de esta función es practicar la creación de elementos html desde JS para ser mostrados en el navegador */
+        /* se practica así la forma de añadir clases, añadir texto, crear e incluir elementos en otros elementos*/
+
+        //SELECCIONAMOS EL CONTENEDOR QUE ESTAMOS MOSTRANDO con el objetivo de meterlo ahí dentro
         const contenedorActual = document.getElementById(this.contenedorActual);
         //CREAMOS EL DIV DEL MODAL. LE DEBEMOS AÑADIR MÁS ELEMENTOS
         const div = document.createElement('div');
         div.classList.add('modal');
         div.id = this.id;
+        //boton para cerrar el modal
         const buttonCerrar = document.createElement('button');
         buttonCerrar.classList.add('btnCerrar');
         buttonCerrar.textContent = 'X';
@@ -137,17 +141,17 @@ class ModalGenerator {
         //CREAMOS EL TITULO
         const h2 = document.createElement('h2');
         if(this.tipo === 'registro'){
-            h2.textContent = 'Registrar';
+            h2.textContent = 'Registrar Alimento';
             
         } else if(this.tipo === 'modificar'){
-            h2.textContent = 'Modificar';
+            h2.textContent = 'Modificar Alimento';
             if(App.arrayAlimentos.length < 1){
                 alert('NO HAY ALIMENTOS DISPONIBLES');
                 
                 return; 
             }
         } else {
-            h2.textContent = 'Eliminar';
+            h2.textContent = 'Eliminar Alimento';
             if(App.arrayAlimentos.length < 1){
                 alert('NO HAY ALIMENTOS DISPONIBLES');
                 
@@ -155,7 +159,7 @@ class ModalGenerator {
             }
         }
         div.append(h2);
-        //CREAMOS EL CUERPO DEL MODAL
+        //CREAMOS EL CUERPO DEL MODAL, que variará en función del tipo de modal
         const cuerpo = document.createElement('div');
         if(this.tipo === 'registro'){
             cuerpo.classList.add('modalRegistrar')
@@ -230,6 +234,7 @@ class ModalGenerator {
                 cuerpo.append(alimento);
 
             })
+            //segundo boton de cerrar
             const inputCerrar = document.createElement('button');
             inputCerrar.textContent = 'Cancelar';
             inputCerrar.classList.add('btnCerrar');
@@ -277,21 +282,16 @@ class ModalGenerator {
         }
         div.append(cuerpo);
         contenedorActual.append(div);
-        document.querySelector('.backdrop').classList.add('active');
-        this.controladorCerrarModal(this.id);
+        document.querySelector('.backdrop').classList.toggle('active');
+        this.controladorCerrarModal();
         if(this.tipo === 'registro'){
-            this.enviarRegistro('btnEnviarRegistro');
+            this.enviarRegistro();
         }
     }
-    controladorCerrarModal(id) {
-        const botonCierre = document.querySelectorAll('.btnCerrar');
-        botonCierre.forEach(btn => {
-            btn.addEventListener('click', this.cerrarModal.bind(id))
-        })
-    }
-    enviarRegistro(id){
+   
+    enviarRegistro(){
     
-        document.getElementById(id).addEventListener('click', e => {
+        document.getElementById('btnEnviarRegistro').addEventListener('click', e => {
             let nombre = document.getElementById('registrarNombre')
             let lugar =   document.getElementById('registrarLugar')
             let cantidad = document.getElementById('registrarCantidad')
@@ -344,11 +344,21 @@ class ModalGenerator {
         document.querySelector('.backdrop').classList.remove('active');
 
     }
-
+    controladorCerrarModal() {
+        const botonCierre = document.querySelectorAll('.btnCerrar');
+        botonCierre.forEach(btn => {
+            //this.id hace referencia a la id del modal, es decir, la id que tiene el div en el HTML
+            btn.addEventListener('click', this.cerrarModal.bind(this.id))
+        })
+    }
     cerrarModal() {
+        /*  ¿a qué hace referencia la palabra reservada this?  Puedes comprobarlo con console.log(this) 
+            y si dentro de controladorCerrarModal no le pasáramos a esta funcion (cerrarModal) la preconfiguración
+            utilizando el método bind de la id del modal?
+        */
         let element = document.getElementById(this);
         element.remove();
-        document.querySelector('.backdrop').classList.remove('active')
+        document.querySelector('.backdrop').classList.toggle('active')
     }
 
 }
@@ -480,7 +490,7 @@ class App {
         document.getElementById(App.idVistaActual).append(cuerpo);
     }
 
-    static requestToSpooncularAPI(value) {
+    static requestSpooncularAPI(value) {
       
         const promise = new Promise(resolve => {
             let xhr = new XMLHttpRequest();
@@ -504,9 +514,10 @@ class App {
             e.remove();
         })
         let value = this.previousElementSibling.value;
-        App.requestToSpooncularAPI(value).then(data => {
-            console.log(data);
-            const busqueda = document.querySelector('.busqueda');
+        App.requestSpooncularAPI(value).then(data => {
+       
+          
+            const busqueda = this.closest('div').nextElementSibling;
             data.forEach(el =>{
                 const div = document.createElement('div');
                 div.classList.add('contenedor-busqueda-alimento');
